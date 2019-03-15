@@ -101,6 +101,9 @@
     ctx.fill();
 
     function startRun(xRadio,yRadioTop,yRadioBottom,stopClear){
+
+
+    
         // 未开门
         
         ctx.beginPath();
@@ -110,13 +113,71 @@
         ctx.lineTo(376, 420);
         ctx.lineTo(xRadio, yRadioBottom);
         ctx.fill();
-  
-   
-        // ctx.fillRect(xRadio, yRadioTop , 376-xRadio, yRadioBottom -yRadioTop );
-        // ctx.fillRect(xRadio, yRadioTop , 376-xRadio, yRadioBottom -yRadioTop );
+        // ctx.stroke();
+        
+                // ctx.fillRect(xRadio, yRadioTop , 376-xRadio, yRadioBottom -yRadioTop );
+                // ctx.fillRect(xRadio, yRadioTop , 376-xRadio, yRadioBottom -yRadioTop );
 
-//   ctx.clearRect(xRadio, xRadio, yRadioTop, yRadioBottom);
-       
+            ctx.clearRect(xRadio - yRadioTop, yRadioTop, yRadioTop, yRadioBottom);
+
+                        // 左边框
+            ctx.beginPath();
+            ctx.moveTo(100, 70);
+            ctx.lineTo(100, 420);
+            ctx.lineTo(120, 420);
+            ctx.lineTo(120, 70);
+            ctx.fill();
+            // 左下角边
+            ctx.beginPath();
+            ctx.moveTo(0, 400);
+            ctx.lineTo(100, 400);
+            ctx.lineTo(100, 420);
+            ctx.lineTo(0, 420);
+            ctx.fill();
+
+            // 右边框
+            ctx.beginPath();
+            ctx.moveTo(380, 70);
+            ctx.lineTo(380, 420);
+            ctx.lineTo(400, 420);
+            ctx.lineTo(400, 70);
+            ctx.fill();
+
+            // 右下角边
+            ctx.beginPath();
+            ctx.moveTo(380, 400);
+            ctx.lineTo(500, 400);
+            ctx.lineTo(500, 420);
+            ctx.lineTo(380, 420);
+            ctx.fill();
+
+            // 上边框
+            ctx.beginPath();
+            ctx.moveTo(100, 70);
+            ctx.lineTo(100, 50);
+            ctx.lineTo(400, 50);
+            ctx.lineTo(400, 70);
+            ctx.fill();
+
+            // 右上锁框
+            ctx.beginPath();
+            // ctx.fillStyle = "orange";
+            ctx.moveTo(360, 150);
+            ctx.lineTo(400, 150);
+            ctx.lineTo(400, 170);
+            ctx.lineTo(360, 170);
+            ctx.fill();
+
+            // 右下锁框
+            ctx.beginPath();
+            // ctx.fillStyle = "orange";
+            ctx.moveTo(360, 300);
+            ctx.lineTo(400, 300);
+            ctx.lineTo(400, 320);
+            ctx.lineTo(360, 320);
+            ctx.fill();
+
+            
      
     }
 
@@ -124,26 +185,24 @@
     var xRadio = 120;
     var yRadioTop = 70;
     var yRadioBottom = 420;
+
     startRun(xRadio,yRadioTop,yRadioBottom);
 
     var runTimer = setInterval(() => {
         console.log(k)
-        if(k>10){
-         
+        if(k>45){
             clearInterval(runTimer);
             k= 0;
         }
         else{
             k++;
-            xRadio+=10;
-            yRadioTop-=5;
-            yRadioBottom+=5;
-         
-            startRun(xRadio,yRadioTop,yRadioBottom);
-            
+            xRadio+=1;
+            yRadioTop-=1;
+            yRadioBottom+=1;
+            startRun(xRadio,yRadioTop,yRadioBottom);   
         }
         
-    }, 100);
+    }, 50);
 
     // // 已开门
     // ctx.beginPath();
