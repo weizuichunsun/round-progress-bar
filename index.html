@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>圆形进度条</title>
+  </head>
+  <style>
+    .box {
+      width: 300px;
+      height: 300px;
+      margin: 50px auto;
+      border: solid thin #ddd;
+    }
+  </style>
+  <body>
+    <div class="box">
+      <canvas id="round" width="300" height="300"></canvas>
+    </div>
+  </body>
+  <script>
+    /*
+        参考文献 ：https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API
+    */
+    function getRads(degrees) {
+      return (Math.PI * degrees) / 180;
+    }
+    function drawPath(x, y, radius, progress) {
+      var canvas = document.getElementById("round");
+      var ctx = canvas.getContext("2d");
+
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2, true); // 绘制
+      ctx.closePath();
+      ctx.fillStyle = "#576b95";
+      ctx.fill();
+      // ctx.stroke();
+
+      // 变化圆圈
+      ctx.beginPath();
+      let Deg = (360 * progress) / 100;
+      ctx.moveTo(x, y);
+      ctx.arc(x, y, radius, Math.PI * 1.5, Math.PI * 1.5 + getRads(Deg), false); // 绘制
+      ctx.closePath();
+      ctx.fillStyle = "#159ff8";
+      ctx.fill();
+      // ctx.stroke();
+
+      // 遮罩
+      ctx.beginPath();
+      ctx.arc(x, y, radius - radius * 0.26, 0, Math.PI * 2, true); // 绘制
+      ctx.closePath();
+      ctx.fillStyle = "#f3f3f3";
+      ctx.fill();
+      // ctx.stroke();
+    }
+
+    let radius = 100;
+    let x = 150;
+    let y = 150;
+    let progress = 100;
+    let num = 0;
+    function startDraw() {
+      var startTimer = setInterval(() => {
+        if (num <= progress) {
+          drawPath(x, y, radius, num++);
+        } else {
+          clearInterval(startTimer);
+          num = 0;
+        }
+      }, 50);
+    }
+    startDraw();
+  </script>
+</html>
