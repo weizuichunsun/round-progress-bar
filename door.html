@@ -23,13 +23,13 @@
         margin: 20px auto;
         width: 500px;
         height: 500px;
-        background: rgba(87, 107, 149, 0.1)
+        background: rgba(87, 107, 149, 0.1);
       }
     </style>
   </head>
   <body>
     <div class="g-doc">
-      <div class="m-box">
+      <div class="m-box" onclick="startRunTimer();">
         <canvas id="door" width="500" height="500"></canvas>
       </div>
     </div>
@@ -41,63 +41,65 @@
 
     ctx.fillStyle = "#353535";
 
-    // 左边框
-    ctx.beginPath();
-    ctx.moveTo(100, 70);
-    ctx.lineTo(100, 420);
-    ctx.lineTo(120, 420);
-    ctx.lineTo(120, 70);
-    ctx.fill();
+    function startLine() {
+      // 左边框
+      ctx.beginPath();
+      ctx.moveTo(100, 70);
+      ctx.lineTo(100, 420);
+      ctx.lineTo(120, 420);
+      ctx.lineTo(120, 70);
+      ctx.fill();
 
-    // // 左下角边
-    // ctx.beginPath();
-    // ctx.moveTo(0, 400);
-    // ctx.lineTo(100, 400);
-    // ctx.lineTo(100, 420);
-    // ctx.lineTo(0, 420);
-    // ctx.fill();
+      // 左下角边
+      ctx.beginPath();
+      ctx.moveTo(0, 400);
+      ctx.lineTo(100, 400);
+      ctx.lineTo(100, 420);
+      ctx.lineTo(0, 420);
+      ctx.fill();
 
-    // 右边框
-    ctx.beginPath();
-    ctx.moveTo(380, 70);
-    ctx.lineTo(380, 420);
-    ctx.lineTo(400, 420);
-    ctx.lineTo(400, 70);
-    ctx.fill();
+      // 右边框
+      ctx.beginPath();
+      ctx.moveTo(380, 70);
+      ctx.lineTo(380, 420);
+      ctx.lineTo(400, 420);
+      ctx.lineTo(400, 70);
+      ctx.fill();
 
-    // 右下角边
-    ctx.beginPath();
-    ctx.moveTo(380, 400);
-    ctx.lineTo(500, 400);
-    ctx.lineTo(500, 420);
-    ctx.lineTo(380, 420);
-    ctx.fill();
+      // 右下角边
+      ctx.beginPath();
+      ctx.moveTo(380, 400);
+      ctx.lineTo(500, 400);
+      ctx.lineTo(500, 420);
+      ctx.lineTo(380, 420);
+      ctx.fill();
 
-    // // 上边框
-    // ctx.beginPath();
-    // ctx.moveTo(100, 70);
-    // ctx.lineTo(100, 50);
-    // ctx.lineTo(400, 50);
-    // ctx.lineTo(400, 70);
-    // ctx.fill();
+      // // 上边框
+      ctx.beginPath();
+      ctx.moveTo(100, 70);
+      ctx.lineTo(100, 50);
+      ctx.lineTo(400, 50);
+      ctx.lineTo(400, 70);
+      ctx.fill();
 
-    // 右上锁框
-    ctx.beginPath();
-    // ctx.fillStyle = "orange";
-    ctx.moveTo(360, 150);
-    ctx.lineTo(400, 150);
-    ctx.lineTo(400, 170);
-    ctx.lineTo(360, 170);
-    ctx.fill();
+      // 右上锁框
+      ctx.beginPath();
+      // ctx.fillStyle = "orange";
+      ctx.moveTo(360, 150);
+      ctx.lineTo(400, 150);
+      ctx.lineTo(400, 170);
+      ctx.lineTo(360, 170);
+      ctx.fill();
 
-    // 右下锁框
-    ctx.beginPath();
-    // ctx.fillStyle = "orange";
-    ctx.moveTo(360, 300);
-    ctx.lineTo(400, 300);
-    ctx.lineTo(400, 320);
-    ctx.lineTo(360, 320);
-    ctx.fill();
+      // 右下锁框
+      ctx.beginPath();
+      // ctx.fillStyle = "orange";
+      ctx.moveTo(360, 300);
+      ctx.lineTo(400, 300);
+      ctx.lineTo(400, 320);
+      ctx.lineTo(360, 320);
+      ctx.fill();
+    }
 
     function startRun(xRadio, yRadioTop, yRadioBottom, stopClear) {
       // 未开门
@@ -109,65 +111,54 @@
       ctx.lineTo(376, 420);
       ctx.lineTo(xRadio, yRadioBottom);
       ctx.fill();
-      // ctx.stroke();
 
-      // ctx.fillRect(xRadio, yRadioTop , 376-xRadio, yRadioBottom -yRadioTop );
-      // ctx.fillRect(xRadio, yRadioTop , 376-xRadio, yRadioBottom -yRadioTop );
-
+      ctx.strokeStyle = "#fff";
+      ctx.stroke();
       ctx.clearRect(xRadio - yRadioTop, yRadioTop, yRadioTop, yRadioBottom);
-      // 左边框
-      ctx.beginPath();
-      ctx.moveTo(100, 70);
-      ctx.lineTo(100, 420);
-      ctx.lineTo(120, 420);
-      ctx.lineTo(120, 70);
-      ctx.fill();
-      // 左下角边
-      ctx.beginPath();
-      ctx.moveTo(0, 400);
-      ctx.lineTo(100, 400);
-      ctx.lineTo(100, 420);
-      ctx.lineTo(0, 420);
-      ctx.fill();
-
-      // 上边框
-      ctx.beginPath();
-      ctx.moveTo(100, 70);
-      ctx.lineTo(100, 50);
-      ctx.lineTo(400, 50);
-      ctx.lineTo(400, 70);
-      ctx.fill();
     }
 
     var k = 0;
-    var xRadio = 120;
+    var xRadio = 121;
     var yRadioTop = 70;
     var yRadioBottom = 420;
+    var openDoorState = 1;
+
+    function startRunTimer() {
+      ctx.clearRect(0, 0, 500, 50);
+      ctx.clearRect(0, 420, 500, 50);
+      // console.log("(xRadio - yRadioTop, yRadioTop, yRadioTop, yRadioBottom)=>",xRadio - yRadioTop, yRadioTop, yRadioTop, yRadioBottom);
+      if (openDoorState) {
+        k = 0;
+        xRadio = 121;
+        yRadioTop = 70;
+        yRadioBottom = 420;
+        openDoorState = 1;
+
+        openDoorState = 0;
+
+        runTimer();
+      }
+    }
+    function runTimer() {
+      clearInterval(Timer);
+      var Timer = setInterval(() => {
+        // console.log(k);
+        if (k > 24) {
+          openDoorState = 1;
+          clearInterval(Timer);
+          k = 0;
+        } else {
+          k++;
+          xRadio += 2;
+          yRadioTop -= 2;
+          yRadioBottom += 2;
+          startRun(xRadio, yRadioTop, yRadioBottom);
+          startLine();
+        }
+      }, 30);
+    }
 
     startRun(xRadio, yRadioTop, yRadioBottom);
-
-    var runTimer = setInterval(() => {
-      console.log(k);
-      if (k > 24) {
-        clearInterval(runTimer);
-        k = 0;
-      } else {
-        k++;
-        xRadio += 2;
-        yRadioTop -= 2;
-        yRadioBottom += 2;
-        startRun(xRadio, yRadioTop, yRadioBottom);
-      }
-    }, 30);
-
-    // // 已开门
-    // ctx.beginPath();
-    // // ctx.fillStyle = "orange";
-    // ctx.moveTo(180, 10);
-    // ctx.lineTo(376, 70);
-    // ctx.lineTo(376, 420);
-    // ctx.lineTo(180, 450);
-    // ctx.fill();
-    // ctx.fillRect(180, 10 , 376-180, 450 -10 );
+    startLine();
   </script>
 </html>
